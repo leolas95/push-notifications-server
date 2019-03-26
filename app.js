@@ -1,24 +1,17 @@
-const admin = require('firebase-admin');
+const express = require('express');
+const app = express();
+const fcm = require('./fcm');
 
-const serviceAccount = require('./serviceAccountKey.json');
 
-admin.initializeApp(
-    credential: admin.credential.cert(serviceAccount),
-)
-
-const registrationToken = ''
-
-const message = {
-    data: {
-        name: 'Leonardo'
-    },
-    token: registrationToken
-}
-
-admin.messaging().send(message)
-.then((response) => {
-    console.log('Succesfully sent message:', response);
-})
-.catch((err) => {
-    console.log('Error sending message:', err);
+app.get('/', (req, res) => {
+    fcm.sendPushNotification({
+        title: 'Se ha generado una alerta',
+        description: 'Se ha detectado un objeto buscado para el que se establecieron condiciones',
+        image_url: 'https://www.spirit-of-metal.com/les%20goupes/O/Opeth/pics/359786_logo.jpg'
+    });
+    res.sendStatus(200);
 });
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
