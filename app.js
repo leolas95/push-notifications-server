@@ -5,7 +5,7 @@ const fcm = require('./fcm');
 
 app.get('/', (req, res) => {
     fcm.sendPushNotification({
-        title: 'Se ha generado una alerta',
+        title: 'Se ha generado una alerta en el sistema',
         description: 'Se ha detectado un objeto buscado para el que se establecieron condiciones',
         image_url: 'https://www.spirit-of-metal.com/les%20goupes/O/Opeth/pics/359786_logo.jpg'
     });
